@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import uuid from 'react-native-uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { styles } from './styles';
 
@@ -14,17 +15,32 @@ export function Form() {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleNew() {
-    const id = uuid.v4();
+  async function handleNew() {
+    try {
+      const id = uuid.v4();
 
-    const newData = {
-      id,
-      name,
-      user,
-      password,
+      const newData = {
+        id,
+        name,
+        user,
+        password,
+      }
+
+      await AsyncStorage.setItem("@passwordbox:passwords", JSON.stringify(newData));
+      
+      Toast.show({
+        type: "success",
+        text1: "Cadastrado com sucesso!"
+      })
+      console.log(newData);
+    } catch (error) {       
+      console.log(error); 
+
+      Toast.show({
+        type: "error",
+        text1: "Não foi possivel cadastrar!"
+      })
     }
-
-    console.log(newData);
   }
 
   return (
