@@ -14,8 +14,8 @@ export function Home() {
 
   async function handleFetchData() {
     const response = await AsyncStorage.getItem("@passwordbox:passwords");
-    const data = response ? JSON.parse(response) : {};
-    setData([data]);
+    const data = response ? JSON.parse(response) : [];
+    setData(data);
   }
 
   useEffect(() => {
