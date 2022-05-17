@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -18,9 +18,9 @@ export function Home() {
     setData(data);
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     handleFetchData();
-  }, []);
+  }, []));
 
   return (
     <View style={styles.container}>
