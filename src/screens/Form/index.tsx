@@ -27,7 +27,7 @@ export function Form() {
       }
 
       const response = await AsyncStorage.getItem("@passwordbox:passwords");
-      const responseData = response ? JSON.parse(response) : [];
+      const previousData = response ? JSON.parse(response) : [];
 
       const data = [...previousData, newData];
       await AsyncStorage.setItem("@passwordbox:passwords", JSON.stringify(data));
