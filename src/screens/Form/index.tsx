@@ -26,7 +26,11 @@ export function Form() {
         password,
       }
 
-      await AsyncStorage.setItem("@passwordbox:passwords", JSON.stringify(newData));
+      const response = await AsyncStorage.getItem("@passwordbox:passwords");
+      const responseData = response ? JSON.parse(response) : [];
+
+      const data = [...previousData, newData];
+      await AsyncStorage.setItem("@passwordbox:passwords", JSON.stringify(data));
       
       Toast.show({
         type: "success",
